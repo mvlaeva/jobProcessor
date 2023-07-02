@@ -8,9 +8,5 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Request {
-    private List<Job> tasks;
-
-    public Request(final List<Job> tasks) {
-        this.tasks = tasks;
-    }
+    private List<Job> jobs;
 }
