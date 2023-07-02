@@ -1,5 +1,6 @@
 package com.example.jobprocessor.dto;
 
+import com.example.jobprocessor.exception.BusinessLogicValidationException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
@@ -23,14 +24,14 @@ public class Job {
 
     @JsonCreator
     public Job(@JsonProperty(value = "name") final String name,
-                @JsonProperty(value = "command") final String command,
-                @JsonProperty(value = "requires") final List<String> requires) {
+               @JsonProperty(value = "command") final String command,
+               @JsonProperty(value = "requires") final List<String> requires) {
         if (isNotNullNorEmpty(name) && isNotNullNorEmpty(command)) {
             this.name = name;
             this.command = command;
             this.requires = requires;
         } else {
-            throw new RuntimeException("Job name/command cannot be null or an empty string!");
+            throw new BusinessLogicValidationException("Job's 'name' and 'command' properties can be neither null nor an empty string!");
         }
     }
 }
