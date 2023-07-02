@@ -22,7 +22,8 @@ public class JobService {
         final StringBuilder sb = new StringBuilder();
         // Append the shebang line to make the script executable directly from the command line
         // without explicitly specifying the interpreter
-        sb.append("#!/usr/bin/env bash");
+        // And an empty line is for readability
+        sb.append("#!/usr/bin/env bash\n\n");
 
         // Append the sorted commands
         for (Job job : sortedTasks) {

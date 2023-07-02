@@ -2,6 +2,7 @@ package service;
 
 import com.example.jobprocessor.dto.Job;
 import com.example.jobprocessor.dto.Request;
+import com.example.jobprocessor.exception.CircularDependencyException;
 import com.example.jobprocessor.service.TopologicalSort;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
@@ -38,14 +39,14 @@ public class TopologicalSortIntegrationTest {
     public void testCircularDependencyTopologicalSort() throws IOException {
         final List<Job> jobs = getJobsFromJsonFile("circular-dependency-topological-sort.json");
 
-        assertThrows(IllegalArgumentException.class, () -> TopologicalSort.topologicalSort(jobs));
+        assertThrows(CircularDependencyException.class, () -> TopologicalSort.topologicalSort(jobs));
     }
 
     @Test
     public void testSophisticatedCircularDependencyTopologicalSort() throws IOException {
         final List<Job> jobs = getJobsFromJsonFile("sophisticated-circular-dependency-topological-sort.json");
 
-        assertThrows(IllegalArgumentException.class, () -> TopologicalSort.topologicalSort(jobs));
+        assertThrows(CircularDependencyException.class, () -> TopologicalSort.topologicalSort(jobs));
     }
 
     private List<Job> getJobsFromJsonFile(final String filename) throws IOException {

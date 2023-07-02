@@ -1,6 +1,7 @@
 package service;
 
 import com.example.jobprocessor.dto.Request;
+import com.example.jobprocessor.exception.CircularDependencyException;
 import com.example.jobprocessor.service.JobService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
@@ -21,7 +22,8 @@ public class JobServiceIntegrationTest {
 
     @Test
     public void testSimpleTopologicalSort() throws IOException {
-        final String expected = "touch /tmp/file1\n" +
+        final String expected = "#!/usr/bin/env bash\n\n" +
+                "touch /tmp/file1\n" +
                 "echo 'Hello World!' > /tmp/file1\n" +
                 "cat /tmp/file1\n" +
                 "rm /tmp/file1\n";
@@ -35,14 +37,14 @@ public class JobServiceIntegrationTest {
     public void testCircularDependencyTopologicalSort() throws IOException {
         final Request request = getRequestFromJsonFile("circular-dependency-topological-sort.json");
 
-        assertThrows(IllegalArgumentException.class, () -> jobService.getTasksSorted(request));
+        assertThrows(CircularDependencyException.class, () -> jobService.getTasksSorted(request));
     }
 
     @Test
     public void testSophisticatedCircularDependencyTopologicalSort() throws IOException {
         final Request request = getRequestFromJsonFile("sophisticated-circular-dependency-topological-sort.json");
 
-        assertThrows(IllegalArgumentException.class, () -> jobService.getTasksSorted(request));
+        assertThrows(CircularDependencyException.class, () -> jobService.getTasksSorted(request));
     }
 
     private Request getRequestFromJsonFile(final String filename) throws IOException {

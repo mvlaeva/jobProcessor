@@ -1,5 +1,5 @@
 {
-  "jobs": [
+  "tasks": [
     {
       "name": "job-1",
       "command": "command-1",
