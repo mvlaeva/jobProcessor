@@ -1,0 +1,24 @@
+{
+  "jobs": [
+    {
+      "name": "job-1",
+      "command": "touch /tmp/file1",
+      "requires": ["job-3"]
+    },
+    {
+      "name": "job-2",
+      "command": "cat /tmp/file1",
+      "requires": ["job-3"]
+    },
+    {
+      "name": "job-3",
+      "command": "echo 'Hello World!' > /tmp/file1",
+      "requires": ["job-1"]
+    },
+    {
+      "name": "job-4",
+      "command": "rm /tmp/file1",
+      "requires": ["job-2", "job-3"]
+    }
+  ]
+}
