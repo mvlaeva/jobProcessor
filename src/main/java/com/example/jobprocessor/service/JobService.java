@@ -20,6 +20,9 @@ public class JobService {
 
     private static String getCommandString(final List<Job> sortedTasks) {
         final StringBuilder sb = new StringBuilder();
+        // Append the shebang line to make the script executable directly from the command line
+        // without explicitly specifying the interpreter
+        sb.append("#!/usr/bin/env bash");
 
         // Append the sorted commands
         for (Job job : sortedTasks) {
