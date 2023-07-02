@@ -32,7 +32,7 @@ public class TopologicalSortIntegrationTest {
         assertEquals("job-3", sortedTasks.get(1).getName());
         assertEquals("job-2", sortedTasks.get(2).getName());
         assertEquals("job-4", sortedTasks.get(3).getName());
-    }+
+    }
 
     @Test
     public void testCircularDependencyTopologicalSort() throws IOException {
