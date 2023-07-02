@@ -1,6 +1,7 @@
 package com.example.jobprocessor.service;
 
 import com.example.jobprocessor.dto.Job;
+import com.example.jobprocessor.exception.CircularDependencyException;
 
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class TopologicalSort {
         for (Job job : jobs) {
             if (!visited.contains(job.getName())) {
                 if (!visit(job, taskMap, visited, path, sortedTasks, circularDependencies)) {
-                    throw new IllegalArgumentException("Circular dependency detected: " + circularDependencies);
+                    throw new CircularDependencyException("Circular dependency detected: " + circularDependencies);
                 }
             }
         }
