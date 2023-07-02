@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("v1/task-processor")
+@RequestMapping("v1/job-processor")
 public class JobController {
 
     private final JobService jobService;
@@ -19,7 +19,7 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @PostMapping("/sort-tasks")
+    @PostMapping("/sort-jobs")
     public String getTasksSorted(@Valid @RequestBody final Request request) {
         return jobService.getTasksSorted(request);
     }
