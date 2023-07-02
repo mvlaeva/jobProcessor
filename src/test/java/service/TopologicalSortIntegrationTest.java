@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TopologicalSortIntegrationTest {
     final ObjectMapper objectMapper = new ObjectMapper();
@@ -31,6 +32,20 @@ public class TopologicalSortIntegrationTest {
         assertEquals("job-3", sortedTasks.get(1).getName());
         assertEquals("job-2", sortedTasks.get(2).getName());
         assertEquals("job-4", sortedTasks.get(3).getName());
+    }+
+
+    @Test
+    public void testCircularDependencyTopologicalSort() throws IOException {
+        final List<Job> jobs = getJobsFromJsonFile("circular-dependency-topological-sort.json");
+
+        assertThrows(IllegalArgumentException.class, () -> TopologicalSort.topologicalSort(jobs));
+    }
+
+    @Test
+    public void testSophisticatedCircularDependencyTopologicalSort() throws IOException {
+        final List<Job> jobs = getJobsFromJsonFile("sophisticated-circular-dependency-topological-sort.json");
+
+        assertThrows(IllegalArgumentException.class, () -> TopologicalSort.topologicalSort(jobs));
     }
 
     private List<Job> getJobsFromJsonFile(final String filename) throws IOException {

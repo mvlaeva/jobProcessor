@@ -1,0 +1,44 @@
+{
+  "jobs": [
+    {
+      "name": "job-1",
+      "command": "command-1",
+      "requires": []
+    },
+    {
+      "name": "job-2",
+      "command": "command-2",
+      "requires": ["job-3"]
+    },
+    {
+      "name": "job-3",
+      "command": "command-3",
+      "requires": ["job-4"]
+    },
+    {
+      "name": "job-4",
+      "command": "command-4",
+      "requires": ["job-5", "job-2"]
+    },
+    {
+      "name": "job-5",
+      "command": "command-5",
+      "requires": ["job-1"]
+    },
+    {
+      "name": "job-6",
+      "command": "command-6",
+      "requires": ["job-4", "job-5"]
+    },
+    {
+      "name": "job-7",
+      "command": "command-7",
+      "requires": ["job-2"]
+    },
+    {
+      "name": "job-8",
+      "command": "command-8",
+      "requires": ["job-6", "job-7"]
+    }
+  ]
+}
